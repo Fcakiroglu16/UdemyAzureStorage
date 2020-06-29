@@ -17,7 +17,7 @@ namespace AzureStorageLibrary
 
         Task<TEntity> Get(string rowKey, string partitionKey);
 
-        Task<IQueryable<TEntity>> All();
+        IQueryable<TEntity> All();
 
         IQueryable<TEntity> Query(Expression<Func<TEntity, bool>> query);
     }
