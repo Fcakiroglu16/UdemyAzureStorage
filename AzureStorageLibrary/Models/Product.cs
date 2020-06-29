@@ -11,6 +11,6 @@ namespace AzureStorageLibrary.Models
         public double Price { get; set; }
         public int Stock { get; set; }
         public string Color { get; set; }
-
+        
     }
 }

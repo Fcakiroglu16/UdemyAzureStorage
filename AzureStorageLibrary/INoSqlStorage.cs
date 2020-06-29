@@ -7,26 +7,18 @@ using System.Threading.Tasks;
 
 namespace AzureStorageLibrary
 {
-
-    public enum ETableName
+    internal interface INoSqlStorage<TEntity>
     {
-        Products,
-  
-    }
-    interface INoSqlStorage<TEntity>
-    {
+        Task<TEntity> Add(TEntity entity);
 
-        Task<TEntity> Add(ETableName eTableName, TEntity entity);
+        Task Delete(string rowKey, string partitionKey);
 
-        Task<TEntity> Get(ETableName eTableName, string rowKey, string partitionKey);
+        Task<TEntity> Update(TEntity entity);
 
-        Task Delete(ETableName eTableName, string rowKey, string partitionKey);
+        Task<TEntity> Get(string rowKey, string partitionKey);
 
-        Task<TEntity> Update(ETableName eTableName, TEntity entity);
+        Task<IQueryable<TEntity>> All();
 
-        Task<List<TEntity>> All(ETableName eTableName);
-        IQueryable<TEntity> Query(ETableName eTable, Expression<Func<TEntity, bool>> search);
-
-
+        IQueryable<TEntity> Query(Expression<Func<TEntity, bool>> query);
     }
 }
