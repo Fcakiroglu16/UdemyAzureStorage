@@ -1,13 +1,16 @@
 ﻿@model AzureStorageLibrary.Models.Product
 <h2>Add Product</h2>
-<form class="form-inline" asp-action="Create" method="post" enctype="application/x-www-form-urlencoded">
+<form class="form-inline" asp-action="@(ViewBag.IsUpdate ? "Update" : "Create")" method="post" enctype="application/x-www-form-urlencoded">
 
     <input class="form-control mr-1" asp-for="Name" placeholder="Ürün ismi" />
     <input class="form-control mr-1" asp-for="Price" placeholder="Ürün fiyatı" />
     <input class="form-control mr-1" asp-for="Stock" placeholder="Ürün stoğu" />
     <input class="form-control mr-1" asp-for="Color" placeholder="Ürün rengi" />
 
-    <input class=" btn btn-primary" type="submit" value="Ürün Kaydet" />
+    <input type="hidden" asp-for="RowKey" />
+    <input type="hidden" asp-for="PartitionKey" />
+    <input type="hidden" asp-for="ETag" />
+    <input class=" btn btn-primary" type="submit" value="@(ViewBag.IsUpdate ? "Ürün Güncelle" : "Ürün Kaydet")" />
 </form>
 
 <h2>Products</h2>
@@ -20,6 +23,7 @@
         <th>Stock</th>
         <th>Color</th>
         <th>TimeStamp</th>
+        <th>Actions</th>
     </tr>
 
     @foreach (var item in ViewBag.products as List<AzureStorageLibrary.Models.Product>)
@@ -32,6 +36,9 @@
             <td>@item.Stock</td>
             <td>@item.Color</td>
             <td>@item.Timestamp</td>
+            <td>
+                <a class="btn btn-danger" asp-action="Update" asp-controller="TableStorages" asp-route-rowKey="@item.RowKey" asp-route-partitionKey="@item.PartitionKey">Update</a>
+            </td>
         </tr>
 
     }
