@@ -9,7 +9,7 @@ using System.Threading.Tasks;
 
 namespace AzureStorageLibrary.Services
 {
-    internal class TableStorage<TEntity> : INoSqlStorage<TEntity> where TEntity : TableEntity, new()
+    public class TableStorage<TEntity> : INoSqlStorage<TEntity> where TEntity : TableEntity, new()
     {
         private readonly CloudTableClient _cloudTableClient;
 
