@@ -19,6 +19,8 @@ namespace MvcWebApp.Controllers
 
         public IActionResult Index()
         {
+            ViewBag.products = _noSqlStorage.All().ToList();
+
             return View();
         }
     }
