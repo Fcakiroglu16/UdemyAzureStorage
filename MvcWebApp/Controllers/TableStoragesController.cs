@@ -63,5 +63,14 @@ namespace MvcWebApp.Controllers
             await _noSqlStorage.Delete(rowKey, partitionKey);
             return RedirectToAction("Index");
         }
+
+        [HttpGet]
+        public IActionResult Query(int price)
+        {
+            ViewBag.IsUpdate = false;
+            ViewBag.products = _noSqlStorage.Query(x => x.Price > price).ToList();
+
+            return View("Index");
+        }
     }
 }

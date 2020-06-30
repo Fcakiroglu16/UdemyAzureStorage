@@ -14,6 +14,12 @@
 </form>
 
 <h2>Products</h2>
+
+<form class="form-inline mb-2" asp-action="Query" method="Get">
+
+    <input class="form-control mr-2" type="number" name="price" />
+    <input type="submit" class="btn btn-dark" value="Query" />
+</form>
 <table class="table table-bordered">
     <tr>
         <th>RowKey</th>
@@ -22,7 +28,7 @@
         <th>Price</th>
         <th>Stock</th>
         <th>Color</th>
-        <th>TimeStamp</th>
+
         <th>Actions</th>
     </tr>
 
@@ -35,7 +41,7 @@
             <td>@item.Price</td>
             <td>@item.Stock</td>
             <td>@item.Color</td>
-            <td>@item.Timestamp</td>
+
             <td>
                 <a class="btn btn-success mr-1 btn-sm" asp-action="Update" asp-controller="TableStorages" asp-route-rowKey="@item.RowKey" asp-route-partitionKey="@item.PartitionKey">Update</a>
                 <a class="btn btn-danger btn-sm" asp-action="Delete" asp-controller="TableStorages" asp-route-rowKey="@item.RowKey" asp-route-partitionKey="@item.PartitionKey">Delete</a>
