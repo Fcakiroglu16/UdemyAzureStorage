@@ -46,5 +46,12 @@ namespace MvcWebApp.Controllers
 
             return File(stream, "application/octet-stream", fileName);
         }
+
+        [HttpGet]
+        public async Task<IActionResult> Delete(string fileName)
+        {
+            await _blobStorage.DeleteAsync(fileName, EContainerName.pictures);
+            return RedirectToAction("Index");
+        }
     }
 }
