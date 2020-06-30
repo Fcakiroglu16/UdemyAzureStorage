@@ -48,6 +48,8 @@ namespace AzureStorageLibrary.Services
             List<string> logs = new List<string>();
             var containerClient = _blobServiceClient.GetBlobContainerClient(EContainerName.logs.ToString());
 
+            await containerClient.CreateIfNotExistsAsync();
+
             var appendBlobClient = containerClient.GetAppendBlobClient(fileName);
 
             await appendBlobClient.CreateIfNotExistsAsync();
@@ -94,7 +96,7 @@ namespace AzureStorageLibrary.Services
             {
                 using (StreamWriter sw = new StreamWriter(ms))
                 {
-                    sw.Write($"{DateTime.Now}: {text} /n");
+                    sw.Write($"{DateTime.Now}: {text}\n");
 
                     sw.Flush();
                     ms.Position = 0;
