@@ -1,0 +1,26 @@
+﻿@{
+    ViewData["Title"] = "Index";
+}
+
+<h2>Pictures</h2>
+<table class="table table-bordered">
+    <tr>
+        <th>Picture</th>
+        <th>Name</th>
+        <th>Actions</th>
+    </tr>
+
+    @foreach (var item in ViewBag.blobs as List<FileBlob>)
+    {
+        <tr>
+            <td>
+                <img src="@item.Url" class="img-thumbnail" style="width:100px;" />
+            </td>
+            <td>
+                @item.Name
+            </td>
+            <td>
+            </td>
+        </tr>
+    }
+</table>

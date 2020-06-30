@@ -25,9 +25,12 @@ namespace MvcWebApp
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
-            ConnectionStrings.AzureStorageConnectionString = Configuration.GetSection("AzureConnectionStrings")["StorageConStr"];
+            ConnectionStrings.AzureStorageConnectionString = Configuration.GetSection("AzureConnectionStrings")["StorageCloudConStr"];
 
             services.AddScoped(typeof(INoSqlStorage<>), typeof(TableStorage<>));
+
+            services.AddSingleton<IBlobStorage, BlobStorage>();
+
             services.AddControllersWithViews();
         }
 

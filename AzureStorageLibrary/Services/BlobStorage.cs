@@ -46,7 +46,7 @@ namespace AzureStorageLibrary.Services
         public async Task<List<string>> GetLogAsync(string fileName)
         {
             List<string> logs = new List<string>();
-            var containerClient = _blobServiceClient.GetBlobContainerClient(EContainerName.Logs.ToString());
+            var containerClient = _blobServiceClient.GetBlobContainerClient(EContainerName.logs.ToString());
 
             var appendBlobClient = containerClient.GetAppendBlobClient(fileName);
 
@@ -84,7 +84,7 @@ namespace AzureStorageLibrary.Services
 
         public async Task SetLogAsync(string text, string fileName)
         {
-            var containerClient = _blobServiceClient.GetBlobContainerClient(EContainerName.Logs.ToString());
+            var containerClient = _blobServiceClient.GetBlobContainerClient(EContainerName.logs.ToString());
 
             var appendBlobClient = containerClient.GetAppendBlobClient(fileName);
 
