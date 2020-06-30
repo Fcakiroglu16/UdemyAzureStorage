@@ -37,7 +37,8 @@
             <td>@item.Color</td>
             <td>@item.Timestamp</td>
             <td>
-                <a class="btn btn-danger" asp-action="Update" asp-controller="TableStorages" asp-route-rowKey="@item.RowKey" asp-route-partitionKey="@item.PartitionKey">Update</a>
+                <a class="btn btn-success mr-1 btn-sm" asp-action="Update" asp-controller="TableStorages" asp-route-rowKey="@item.RowKey" asp-route-partitionKey="@item.PartitionKey">Update</a>
+                <a class="btn btn-danger btn-sm" asp-action="Delete" asp-controller="TableStorages" asp-route-rowKey="@item.RowKey" asp-route-partitionKey="@item.PartitionKey">Delete</a>
             </td>
         </tr>
 

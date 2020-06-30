@@ -56,5 +56,12 @@ namespace MvcWebApp.Controllers
 
             return RedirectToAction("Index");
         }
+
+        [HttpGet]
+        public async Task<IActionResult> Delete(string rowKey, string partitionKey)
+        {
+            await _noSqlStorage.Delete(rowKey, partitionKey);
+            return RedirectToAction("Index");
+        }
     }
 }
