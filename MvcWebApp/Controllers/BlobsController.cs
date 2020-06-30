@@ -38,5 +38,13 @@ namespace MvcWebApp.Controllers
 
             return RedirectToAction("Index");
         }
+
+        [HttpGet]
+        public async Task<IActionResult> Download(string fileName)
+        {
+            var stream = await _blobStorage.DownloadAsync(fileName, EContainerName.pictures);
+
+            return File(stream, "application/octet-stream", fileName);
+        }
     }
 }
