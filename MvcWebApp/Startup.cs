@@ -10,6 +10,7 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using AzureStorageLibrary;
 using AzureStorageLibrary.Services;
+using MvcWebApp.Hubs;
 
 namespace MvcWebApp
 {
@@ -32,6 +33,8 @@ namespace MvcWebApp
             services.AddSingleton<IBlobStorage, BlobStorage>();
 
             services.AddControllersWithViews();
+
+            services.AddSignalR();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -56,6 +59,8 @@ namespace MvcWebApp
 
             app.UseEndpoints(endpoints =>
             {
+                endpoints.MapHub<NotificationHub>("/NotificationHub");
+
                 endpoints.MapControllerRoute(
                     name: "default",
                     pattern: "{controller=Home}/{action=Index}/{id?}");

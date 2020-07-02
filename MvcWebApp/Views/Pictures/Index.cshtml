@@ -1,0 +1,78 @@
+﻿@{
+    ViewData["Title"] = "Index";
+}
+@section Scripts
+{
+    <script src="~/lib/microsoft/signalr/dist/browser/signalr.min.js"></script>
+    <script type="text/javascript">
+
+            $(document).ready(() => {
+                var connection = new signalR.HubConnectionBuilder().withUrl("/NotificationHub").build();
+
+                connection.start().then(() => {
+
+                    console.log("Hub Connection Id:" + connection.connectionId)
+                });
+
+                connection.on("NotifyCompleteWatermarkProcess", () => {
+
+                    $("#status").html(`Resimlerinize yazı ekleme işlemi bitmiştir.<a  href="/pictures/showwatermark">işlenmiş resimlerinizi görmek için tıklayınız</a>`);
+
+                })
+
+            var pictures = new Array();
+
+            var UserId = "@ViewBag.UserId";
+            var City = "@ViewBag.City";
+
+            $("#AddWatermark").click(() => {
+
+                let pictureWatermarkQueue = {
+                    "UserId": UserId, "City": City, "ConnectionId": connection.connectionId, "WatermarkText": $("#watermarkText").val(), "Pictures": pictures
+                };
+
+                $.post("/Pictures/AddWatermark", pictureWatermarkQueue, (data) => {
+
+                    $("#status").text("Resimlerinize yazı ekleniyor.");
+                })
+
+            })
+
+            $("#images img").click(function () {
+
+                $(this).css("border", "3px solid red");
+
+                pictures.push($(this).attr("data-name"));
+
+                console.log(pictures);
+            })
+
+        })
+    </script>
+
+}
+
+<div class="row">
+    <div class="col-md-8  offset-md-2">
+
+        <form class="form-inline" asp-action="Index" method="post" enctype="multipart/form-data">
+
+            <input type="file" name="pictures" multiple />
+            <input class="btn btn-primary" type="submit" value="Add Picture" />
+        </form>
+
+        <div class="form-inline mt-3">
+
+            <input class="form-control" type="text" id="watermarkText" />
+            <button class=" btn btn-warning ml-1" id="AddWatermark">Add Watermark</button>
+        </div>
+        <h2 id="status"></h2>
+        <h2>Pictures</h2>
+        <div id="images">
+            @foreach (var item in ViewBag.fileBlobs as List<FileBlob>)
+            {
+                <img style="width:200px;" data-name="@item.Name" src="@item.Url" />
+            }
+        </div>
+    </div>
+</div>

@@ -116,7 +116,7 @@ namespace AzureStorageLibrary.Services
 
             var blobClient = containerClient.GetBlobClient(fileName);
 
-            await blobClient.UploadAsync(fileStream);
+            await blobClient.UploadAsync(fileStream,true);
         }
     }
 }
